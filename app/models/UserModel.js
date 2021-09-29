@@ -1,5 +1,7 @@
+const validator = require('validator')
+
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('users', {
+  const UserModel = sequelize.define('users', {
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -8,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isEmail: true
-      }
     },
 
     password: {
@@ -27,12 +26,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-  User.associate = models => {
+  UserModel.associate = models => {
     // Write of the table name
-    User.hasMany(models.notes, {
+    UserModel.hasMany(models.notes, {
       onDelete: 'cascade'
     })
   }
 
-  return User
+  return UserModel
 }

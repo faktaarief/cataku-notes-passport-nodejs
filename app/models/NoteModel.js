@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Note = sequelize.define('notes', {
+  const NoteModel = sequelize.define('notes', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-  Note.associate = models => {
+  NoteModel.associate = models => {
     // Write of the table name
-    Note.belongsTo(models.users, {
+    NoteModel.belongsTo(models.users, {
       foreignKey: {
         allowNull: false,
       }
     })
   }
 
-  return Note
+  return NoteModel
 }
