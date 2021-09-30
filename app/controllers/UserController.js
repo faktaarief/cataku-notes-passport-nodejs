@@ -1,25 +1,48 @@
-const { validationResult } = require('express-validator')
 const UserService = require('../services/UserService')
+const bcrypt = require('bcryptjs')
 
-exports.findAll = async (req, res) => {
+exports.create = async (req, res) => {
   try {
-    const users = await UserService.findAll()
-    return res.json({ datas: users })
+    return res.json({
+      data: await UserService.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password),
+      })
+    })
   } catch (error) {
-    return res.json({ error })
+    return res.status(400).json({ error })
   }
 }
 
-exports.create = async (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() })
+exports.findAll = async (req, res) => {
+  try {
+    return res.json({ datas: await UserService.findAll() })
+  } catch (error) {
+    return res.status(400).json({ error })
+  }
+}
 
-  const user = await UserService.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  })
-  
-  return res.json({ data: user })
-  
+exports.findByPk = async (req, res) => {
+  try {
+    return res.json({ data: await UserService.findByPk(req.params.id) })
+  } catch (error) {
+    return res.status(400).json({ error })
+  }
+}
+
+exports.update = async (req, res) => {
+  try {
+    return res.json({ data: await UserService.update(req.body, req.params.id) })
+  } catch (error) {
+    return res.status(400).json({ error })
+  }
+}
+
+exports.destroy = async (req, res) => {
+  try {
+    return res.json({ data: await UserService.destroy(req.params.id) })
+  } catch (error) {
+    return res.status(400).json({ error })
+  }
 }

@@ -1,8 +1,8 @@
 const cors = require('cors')
 const db = require('./app/models')
 const express = require('express')
-const { PORT } = require('./app/config/dotenv') || 3000
 const routes = require('./app/routes')
+const { PORT } = require('./app/config/dotenv') || 3000
 
 const app = express()
 
