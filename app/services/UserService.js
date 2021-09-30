@@ -20,6 +20,16 @@ exports.findByPk = async (id) => {
   return Promise.resolve(data)
 }
 
+exports.findWhere = async (field, record) => {
+  const data = await users.findOne({
+    where: {
+      [field]: record
+    }
+  })
+  if (!data) return Promise.reject('Data not found')
+  return Promise.resolve(data)
+}
+
 exports.update = async (body, id) => {
   const data = await users.update(body, { where: { id } })
   if (!data[0]) return Promise.reject('Fail to update data, please check your field name or value!')

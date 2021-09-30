@@ -5,5 +5,6 @@ dotenv.config({ path: path.join(__dirname, '../../.env') })
 
 module.exports = {
   PORT: process.env.PORT,
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  SESSION_SECRET: process.env.SESSION_SECRET
 }
